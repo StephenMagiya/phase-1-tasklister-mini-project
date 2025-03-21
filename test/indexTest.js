@@ -35,7 +35,6 @@ global.Node = dom.window.Node;
 global.Text = dom.window.Text;
 global.XMLHttpRequest = dom.window.XMLHttpRequest;
 
-// Sample test suite for JavaScript event handling
 describe('Handling form submission', () => {
   let form
   let formInput

@@ -1,26 +1,46 @@
- document.addEventListener("DOMContentLoaded", () => {
-  // your code here
-  const taskCreater = document.getElementById("create-task-form");
-  taskCreater.addEventListener("submit", logging);
+
+const newTaskForm = document.getElementById("create-task-form");
+const taskList = [];
+
+newTaskForm.addEventListener("submit", (event) => {
+
+  event.preventDefault();
+
+  const input = document.getElementById("new-task-description");
+
+  taskList.push(input.value.trim());
+
+  newTaskForm.reset();
+
+  console.log(taskList);
+
+  toDoList(taskList);
 });
-function logging(event) {
-  event.preventDefault(); 
 
-  const input = document.getElementById("new-task-description").value;
-  if (!input.trim()) return; 
+function toDoList(todo) {
+  const tasks = document.querySelector("#tasks");
 
-  const todos = document.getElementById("tasks"); 
-  const li = document.createElement("li");
-  const btn = document.createElement("button");
+  tasks.innerHTML = "";
 
-  li.textContent = input + " "; 
-  btn.textContent = "x";
-  btn.addEventListener("click", function () {
-    li.remove();
+  todo.forEach((toDo) => {
+    console.log(toDo);
+
+    const li = document.createElement("li");
+    li.textContent = toDo;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "x";
+
+    deleteButton.addEventListener("click", () => {
+      li.remove();
+
+      taskList.splice(taskList.indexOf(toDo), 1);
+
+      
+    });
+
+    li.appendChild(deleteButton);
+
+    tasks.appendChild(li);
   });
-
-  li.appendChild(btn);
-  todos.appendChild(li); // Append to the correct UL element
-
-  document.getElementById("create-task-form").reset(); // Clear input field
 }
